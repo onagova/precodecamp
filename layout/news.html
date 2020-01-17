@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>BBC News Layout</title>
+
+  <link rel="stylesheet" href="styles/style-news.css" type="text/css">
+</head>
+<body>
+  <!-- <nav>
+    <div class="container">
+      <div>
+        <div class="image-wrapper">
+          <div class="image"></div>
+        </div>
+      </div>
+    </div>
+  </nav> -->
+  <div class="padding-wrapper description">
+    <p>เพจต้นแบบ <a href="https://www.bbc.com/news">BBC News</a></p>
+    <div class="image-wrapper">
+      <img src="images/bbc-news-header-ref.png" alt="BBC Header">
+    </div> 
+    <p>
+      Header นี้น่าจะเริ่มด้วย block ที่ไม่มี margin ซ้าย-ขวา(ขนาดเท่า viewport) แล้วให้ element ที่เป็นลูกทันทีแสดงผลแบบ block และมี max-width ขนาดนึง
+      พร้อมกับให้มี margin ซ้าย-ขวา auto เพื่อให้ block ลูกเหล่านั้นอยู่ตรงกลางจอ<br>
+      'NEWS' น่าจะใช้ h1 ธรรมดา<br>
+      ส่วนของ navigation bar คิดว่าใช้การแสดงผลแบบ flex โดยมี flex flow แบบ row และ nowrap เพราะสมาชิกจะอยู่ติดกันบนบรรทัดเดียวกันตลอด
+      แต่ของเขามีการตอบสนองกับขนาดของ viewport เป็นพิเศษด้วยการหยุดการแสดงผลของสมาชิกใน flex บางตัวเมื่อขนาดหน้าจอเล็กเกินไป
+      แล้วยังมีการเปลี่ยน navigation bar ให้กลายเป็นเมนู dropdown ด้วยเมื่อ viewport เล็กมากๆ ซึ่งในตัวอย่างที่จะแสดงต่อไปขอละไว้
+    </p>
+    <hr>
+    <div class="image-wrapper">
+      <img src="images/bbc-news-top-news-ref.png" alt="BBC Top News">
+    </div>
+    <p>
+      ในส่วนของกลุ่มพาดหัวข่าวแรก เห็นครั้งแรกคิดว่าใช้ grid ในการจัดวาง แต่พอลองปรับขนาด viewport ดูแล้วเห็นว่า
+      เพจมีการตอบสนองต่อการเปลี่ยนขนาด viewport ข้อนค่างซับซ้อน ซึ่งจริงๆก็ไม่มั่นใจว่าทำได้อย่างไร แต่ในที่นี้คิดว่าใช้ flex น่าจะดีกว่า grid<br>
+      โดยจะใช้ flex flow แบบ row และ wrap ในส่วนของสมาชิกจะกำหนดให้สมาชิกธรรมดา(แบบที่มีรูปข้างบนแล้วมีข้อความด้านล่าง)มีความกว้างขนาดนึง
+      เทียบเป็นความกว้าง 1 บล๊อค<br>
+      โดยใน div flex จะมีความกว้างพอที่จะรองรับได้ 5 บล๊อคเป็นอย่างมาก และนอกจากสมาชิกธรรมดาที่กล่าวไปแล้ว กลุ่มพาดหัวข่าวนี้จะมีสมาชิกพิเศษอีกสามแบบ
+    </p>
+    <p>
+      แบบที่หนึ่งคือสมาชิกแรกสุด คิดว่าการจัดวางที่ควรทำคือ เริ่มจากจับกลุ่มรูปภาพและกลุ่มข้อความให้อยู่ div เดียวกัน แล้วให้ div นี้แสดงผลเป็น flex
+      โดยมี flow แบบ row-reverse และ wrap เพื่อให้รูปภาพที่มาก่อนในเอกสารไปอยู่ทางขวาของข้อความ โดยรูปภาพของสมาชิกนี้จะมีความกว้างอยู่ที่ 2 บล๊อค
+      และกลุ่มข้อความจะมีความกว้าง 1 บล๊อค ทำให้สมาชิกนี้มีความกว้างโดยรวม 3 บล๊อค นอกจากนี้สมาชิกนี้ยังต้องมี div ที่มีข้อความสามข้อความข้างล่างด้วย
+      โดยเพื่อให้ทั้งสามข้อความอยู่ในบรรทัดเดียวกัน div นี้จึงต้องเป็น flex ด้วย โดย flow แบบ row และ wrap
+    </p>
+    <p>
+      แบบที่สองคือสมาชิกที่มีรูปภาพยาวกว่าสมาชิกทั่วไปและข้อความมีแต่พาดหัวข่าว คิดว่าวิธีนึงที่จะทำแบบนี้ได้คือให้สมาชิกนี้มีโครงสร้างใน html เหมือนกับสมาชิกธรรมดา
+      แต่ให้เนื้อหาย่อของข่าวกับเวลาลงข่าวไม่แสดงผล ในส่วนของ div ของรูปภาพแน่นอนว่าต้องให้มี aspect ratio มาทางแนวตั้งมากกว่าแนวนอน
+      และในส่วนของ div ของกลุ่มข้อความก็ให้มี position: absolute; แล้วเลื่อนตำแหน่งลงมาจากขอบบนซัก 70% ก็น่าจะพอได้
+    </p>
+    <p>
+      แบบที่สามคือสมาชิกที่มีหลายพาดหัวข่าวแต่ไม่มีรูปภาพ คิดว่าวิธีนึงที่ทำได้คือนำสมาชิกธรรมดา 4 ตัวมารวมไว้ใน div เดียวกัน โดยให้ div นี้แสดงเป็น flex
+      และมี flow แบบ row และ wrap โดยมีความกว้าง 1 บล๊อคหรือมากกว่านั้น(ให้มี flex-grow) ในส่วนของสมาชิกธรรมดาที่นำมารวมไว้ก็ให้ซ่อนการแสดงผลของ
+      รูปภาพและเรื่องย่อของข่าวไว้ และให้ตัวมันมีความกว้างได้แค่ 1 บล๊อค<br>
+      ที่สมาชิกนี้ต้องทำเป็น flex ไว้ก็เผื่อในกรณีที่สมาชิกนี้ตกไปอยู่บรรทัดถัดไปที่มีที่ว่างเหลือทางขวา สมาชิกธรรมดาทั้ง 4 ตัวจะได้ขึ้นมาชิดติดกันตามแนวนอนได้
+    </p>
+    <hr>
+    <div class="image-wrapper">
+      <img src="images/bbc-news-footer-ref.png" alt="BBC Footer">
+    </div>
+    <p>
+      ในส่วนของ footer นี้น่าจะทำงานคล้ายกับ header โดยเริ่มด้วย block ที่ไม่มี margin ซ้าย-ขวา(ขนาดเท่า viewport) แล้วให้ element ที่เป็นลูกทันทีแสดงผลแบบ block
+      และมี max-width ขนาดนึง พร้อมกับให้มี margin ซ้าย-ขวา auto เพื่อให้ block ลูกเหล่านั้นอยู่ตรงกลางจอ<br>
+      'Explore the BBC' น่าจะใช้ h2 ธรรมดา
+    </p>
+    <p>
+      ในส่วนของ navigation bar (ที่มี Home, News, Sport, ...) ของต้นแบบเขาก็มีการตอบสนองกับขนาด viewport ที่ซับซ้อนอีกแล้ว
+      แต่ถ้าจะเอาให้พอเหมือนคิดว่าน่าใช้ flex ที่มี flow แบบ row และ wrap เนื่องจากมีการขึ้นบรรทัดใหม่ และใช้ justify-content: space-between;
+      เพื่อให้แต่ละสมาชิกกระจายตัวไปชิดฝั่งซ้ายขวา และมีความห่างเท่าๆกัน โดยจะต้องตั้ง flex-basis ที่เท่ากันให้ทุกๆสมาชิก สมาชิกแต่ละตัวจะได้มีความกว้างเท่ากัน
+      โดยไม่สนว่าข้อความของแต่ละสมาชิกจะยาวขนาดไหน
+    </p>
+    <p>
+      สำหรับบรรทัดถัดไปที่รวมรายการลิ้งค์(ที่มี Terms of Uses, About the BBC, ... คล้ายๆ navigation bar อีกแล้ว) น่าจะใช้ flex ที่มี flow แบบ row และ wrap ได้เลย
+      แล้วใส่ column-gap เพื่อแยกแต่ละลิ้งค์ออกจากกัน
+    </p>
+    <p>
+      บรรทัดสุดท้ายน่าจะเป็น p ธรรมดา
+    </p>
+    <p>ทั้งนี้ ได้พยายามวางหน้าเพจตามต้นแบบได้ดังนี้</p>
+    <hr>
+  </div>
+  <header>
+    <div class="padding-wrapper">
+      <h1>NEWS</h1>
+      <div class="container">
+        <div class="active"><a href="#">Home</a></div>
+        <div><a href="#">Video</a></div>
+        <div><a href="#">World</a></div>
+        <div><a href="#">Asia</a></div>
+        <div><a href="#">UK</a></div>
+        <div><a href="#">Business</a></div>
+        <div><a href="#">Tech</a></div>
+        <div><a href="#">Science</a></div>
+        <div><a href="#">Stories</a></div>
+        <div><a href="#">Entertainment & Arts</a></div>
+        <div><a href="#">Health</a></div>
+        <div><a href="#">World News TV</a></div>
+        <div><a href="#">In Pictures</a></div>
+        <div><a href="#">Reality Check</a></div>
+        <div><a href="#">News Beat</a></div>
+        <div class="more"><a href="#">More</a></div>
+      </div>
+    </div>   
+  </header>
+  <div class="padding-wrapper">
+    <div class="top-headline">
+      <div>
+        <div class="extra-flex">
+          <div class="image-wrapper">
+            <div class="image"></div>
+          </div>
+          <div class="story">
+            <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deleniti aspernatur a molestias! Voluptatibus, delectus.</p>
+            <div>Lorem, ipsum.</div>
+          </div>
+        </div>
+        <div class="extra-links">
+          <div>Lorem ipsum dolor sit amet.</div>
+          <div>Lorem ipsum dolor sit amet.</div>
+          <div>Lorem ipsum dolor sit amet.</div>
+        </div>
+      </div>
+      <div>
+        <div class="image-wrapper">
+          <div class="image"></div>
+        </div>
+        <div class="story">
+          <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deleniti aspernatur a molestias! Voluptatibus, delectus.</p>
+          <div>Lorem, ipsum.</div>
+        </div>     
+      </div>
+      <div>
+        <div class="image-wrapper">
+          <div class="image"></div>
+        </div>
+        <div class="story">
+          <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deleniti aspernatur a molestias! Voluptatibus, delectus.</p>
+          <div>Lorem, ipsum.</div>
+        </div>
+      </div>
+      <div class="special-image">
+        <div class="image-wrapper">
+          <div class="image"></div>
+        </div>
+        <div class="story">
+          <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deleniti aspernatur a molestias! Voluptatibus, delectus.</p>
+          <div>Lorem, ipsum.</div>
+        </div>
+      </div>
+      <div>
+        <div class="image-wrapper">
+          <div class="image"></div>
+        </div>
+        <div class="story">
+          <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deleniti aspernatur a molestias! Voluptatibus, delectus.</p>
+          <div>Lorem, ipsum.</div>
+        </div>
+      </div>
+      <div>
+        <div class="image-wrapper">
+          <div class="image"></div>
+        </div>
+        <div class="story">
+          <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deleniti aspernatur a molestias! Voluptatibus, delectus.</p>
+          <div>Lorem, ipsum.</div>
+        </div>
+      </div>
+      <div class="limited-headline">
+        <div>
+          <div class="image-wrapper">
+            <div class="image"></div>
+          </div>
+          <div class="story">
+            <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deleniti aspernatur a molestias! Voluptatibus, delectus.</p>
+            <div>Lorem, ipsum.</div>
+          </div>
+        </div>
+        <div>
+          <div class="image-wrapper">
+            <div class="image"></div>
+          </div>
+          <div class="story">
+            <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deleniti aspernatur a molestias! Voluptatibus, delectus.</p>
+            <div>Lorem, ipsum.</div>
+          </div>
+        </div>
+        <div>
+          <div class="image-wrapper">
+            <div class="image"></div>
+          </div>
+          <div class="story">
+            <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deleniti aspernatur a molestias! Voluptatibus, delectus.</p>
+            <div>Lorem, ipsum.</div>
+          </div>
+        </div>
+        <div>
+          <div class="image-wrapper">
+            <div class="image"></div>
+          </div>
+          <div class="story">
+            <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deleniti aspernatur a molestias! Voluptatibus, delectus.</p>
+            <div>Lorem, ipsum.</div>
+          </div>
+        </div>
+      </div>
+      <div class="limited-headline">
+        <div>
+          <div class="image-wrapper">
+            <div class="image"></div>
+          </div>
+          <div class="story">
+            <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deleniti aspernatur a molestias! Voluptatibus, delectus.</p>
+            <div>Lorem, ipsum.</div>
+          </div>
+        </div>
+        <div>
+          <div class="image-wrapper">
+            <div class="image"></div>
+          </div>
+          <div class="story">
+            <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deleniti aspernatur a molestias! Voluptatibus, delectus.</p>
+            <div>Lorem, ipsum.</div>
+          </div>
+        </div>
+        <div>
+          <div class="image-wrapper">
+            <div class="image"></div>
+          </div>
+          <div class="story">
+            <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deleniti aspernatur a molestias! Voluptatibus, delectus.</p>
+            <div>Lorem, ipsum.</div>
+          </div>
+        </div>
+        <div>
+          <div class="image-wrapper">
+            <div class="image"></div>
+          </div>
+          <div class="story">
+            <h2>Lorem ipsum dolor sit amet consectetur.</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo deleniti aspernatur a molestias! Voluptatibus, delectus.</p>
+            <div>Lorem, ipsum.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+  <footer>
+    <div class="padding-wrapper">
+      <div class="width-wrapper">
+        <h2>Explore the BBC</h2>
+        <div class="extra-nav">
+          <div><a href="#">Home</a></div>
+          <div><a href="#">News</a></div>
+          <div><a href="#">Sport</a></div>
+          <div><a href="#">Reel</a></div>
+          <div><a href="#">Worklife</a></div>
+          <div><a href="#">Travel</a></div>
+          <div><a href="#">Future</a></div>
+          <div><a href="#">Culture</a></div>
+          <div><a href="#">Music</a></div>
+          <div><a href="#">TV</a></div>
+          <div><a href="#">Weather</a></div>
+          <div><a href="#">Sounds</a></div>
+        </div>
+        <div class="legal">
+          <div class="legal-nav">
+            <a href="#">Term of Uses</a>
+            <a href="#">About the BBC</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookies</a>
+            <a href="#">Accessibility Help</a>
+            <a href="#">Parental Guidance</a>
+            <a href="#">Contact the BBC</a>
+            <a href="#">Get Personalised Newsletters</a>
+            <a href="#">Advertise with us</a>
+            <a href="#">Ad choices</a>
+          </div>
+          <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Illo facilis non ex sunt dicta harum veniam necessitatibus repellendus rerum. Harum, commodi?</p>
+      </div>     
+      </div>
+    </div>      
+  </footer>
+</body>
+</html>
