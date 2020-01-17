@@ -1,146 +1,290 @@
+/* เลือก div ที่จะมี .tooltiptext ข้างใน */
 .tooltip {
+  /* ตั้ง position เป็น relative ไว้เพื่อเซ็ทตำแหน่งของ div ให้เป็นไปตาม flow เอกสารปกติ
+    และเตรียม div นี้เป็นกรอบอ้างอิงตำแหน่งสำหรับ .tooltiptext ที่จะมี position: absolute; */
   position: relative;
+
+  /* ปรับให้ div มีขนาดตาม content ข้างใน */
   display: inline-block;
+
+  /* ขีดเส้นใต้เล็กน้อย */
   border-bottom: 1px dotted black;
 }
 
+/* เลือก span ที่มี tooltip จริงๆ */
 .tooltip .tooltiptext {
+  /* สีพื้นหลัง */
   background-color: black;
+
+  /* สีตัวอักษร */
   color: white;
+
+  /* ตั้งให้ข้อความปรับไปอยู่ตรงกลางของ block*/
   text-align: center;
+
+  /* กันไว้ไม่ให้ space ในข้อความขึ้นบรรทัดใหม่ tooltip อยู่ในบรรทัดเดียวน่าจะสวยกว่า (แต่ตัวอย่างนี้ไม่มีเว้นวรรคเลยไม่จำเป็น) */
   white-space: nowrap;
+
+  /* เว้นระยะระหว่างข้อความกับขอบกล่องเล็กน้อย */
   padding: 5px 10px;
+
+  /* ใส่ความมนให้ขอบกล่อง */
   border-radius: 6px;
 
+  /* ตั้งเป็น absolute เพื่อจัดตำแหน่งโดยอ้างอิงจากตำแหน่งของ .tooltip (parent element) ที่เตรียมเป็น relative ไว้แล้ว */
   position: absolute;
+
+  /* ตั้ง padding-top ไว้ 5px เลยต้องดันให้ขอบด้านบนของกล่องนี้สูงกว่าขอบด้านบนของ .tooltip 5px ด้วย ข้อความของทั้งคู่จะได้อยู่ระดับเดียวกัน */
   top: -5px;
+
+  /* ดันขอบซ้ายของกล่องนี้มาไกลเท่ากับความกว้างของ .tooltip (ดันมา 100% ของ .tooltip) แล้วดันเพิ่มอีกนิดหน่อยเพื่อให้มีช่องว่างระหว่างกัน */
   left: 105%;
+
+  /* ตั้ง z-index ไว้เผื่อมีการทับกัน กล่องนี้จะแสดงบน .tooltip (แต่จาก left: 105%; ก็ไม่ควรจะทับแล้ว)  */
   z-index: 1;
 
+  /* ตั้งให้โปร่งใสจนมองไม่เห็นไว้ก่อน */
   opacity: 0;
+
+  /* ตั้งให้ opacity มีเวลาในการเปลี่ยนแปลง กล่องนี้จะได้ขึ้นมาสวยๆ */
   transition: opacity 1s;
 }
 
+/* สร้าง block เพิ่มเติมต่อจาก .tooltiptext เพื่อจะใช้เป็นลูกศรของ .tooltiptext */
 .tooltip .tooltiptext::after {
+  /* กล่องเปล่า ไม่มีข้อความข้างใน */
   content: "";
+
+  /* ขอบหนา 5px */
   border-width: 5px;
+
+  /* ขอบแบบเส้นทึบ */
   border-style: solid;
+
+  /* ลูกศรเราจะชี้ไปทางซ้ายเลยให้มีแค่ขอบด้านขวาที่มีสี (ทำให้เกิดสามเหลี่ยมที่มีฐานอยู่ด้านขวาและมีหัวชี้ไปด้านซ้าย) */
   border-color: transparent black transparent transparent;
 
+  /* จัดตำแหน่งโดยอ้างอิงจากตำแหน่งของ .tooltiptext */
   position: absolute;
+
+  /* ปรับขอบด้านบนของกล่องนี้ให้ลงมาจากขอบด้านบนของ .tooltiptext 5px(padding-top ของ .tooltiptext) บวกกับอีก 5px(border-width ของกล่องนี้)
+    ลูกศรจะได้อยู่ตรงกลางตามแนวตั้งของ .tooltiptext พอดี */
   top: 10px;
+
+  /* ปรับขอบด้านขวาให้ห่างจากขอบด้านขวาของ .tooltiptext ตามความกว้างของ .tooltiptext ลูกศรจะได้อยู่ชิดฝั่งซ้ายของ .tooltiptext พอดี */
   right: 100%;
 }
 
+/* เมื่อเม้าส์อยู่เหนือ .tooltip เราจะปรับ .tooltiptext */
 .tooltip:hover .tooltiptext {
+  /* ปรับให้ไม่โปร่งใส จะได้มองเห็น .tooltiptext ที่เราเตรียมไว้ */
   opacity: 1;
 }
 
+/* เพิ่ม clearfix hack เพื่อหยุดการ float ทั้งทางด้านซ้ายและขวาของ div นี้ (เราจะใช้ float กับสมาชิกใน div นี้)
+  element ตัวต่อไปในเพจจะได้ไม่ลอยมาติดกับ div นี้ด้วย เอามาจาก https://www.w3schools.com/howto/howto_css_clearfix.asp */
 .pagination::after {
   content: "";
   clear: both;
   display: table;
 }
 
+/* เลือกลิ้งค์ทั้งหลายใน .pagination */
 .pagination a {
+  /* สีตัวอักษร */
   color: black;
+
+  /* เอาขีดเส้นใต้ออก */
   text-decoration: none;
+
+  /* เพิ่มช่องว่างระหว่างข้อความและขอบ */
   padding: 8px 16px;
+
+  /* ใส่ขอบ */
   border: 1px solid #ddd;  
+
+  /* ตั้งให้ a นี้กลายเป็น block และให้ลอยไปชิดฝั่งซ้ายบนของ parent ให้ได้มากที่สุด ช่วยทำให้สมาชิก a ใน .pagination อยู่ชิดกัน */
   float: left;
 
+  /* ใส่เวลาให้การเปลี่ยนสีฉากหลังสวยๆ */
   transition: background-color .3s;
 }
 
+/* เลือกลิ้งค์ใน .pagination ที่ไม่ใช่ลิ้งค์สุดท้าย */
 .pagination a:not(:last-child) {
+  /* ลบขอบด้านขวาออก ขอบซ้ายและขวาของกล่องที่อยู่ติดกันจะได้ไม่ทับกัน ยกเว้นกล่องสุดท้ายที่ด้านขวาจะไม่มีใครมาติดแล้วเลยมีขอบด้านขวาได้ */
   border-right: none;
 }
 
+/* เลือกลิ้งค์ที่มี class="active" ใน .pagination */
 .pagination a.active {
+  /* สีพื้นหลัง */
   background-color: #4caf50;
+
+  /* สีตัวอักษร */
   color: white;
 }
 
+/* เลือกลิ้งค์ที่ไม่มี class="active" ที่โดนชี้อยู่ใน .pagination */
 .pagination a:hover:not(.active) {
+  /* สีพื้นหลัง */
   background-color: #ddd;
 }
 
+/* เลือกลิสต์ที่เราจะใช้เป็น navigation bar */
 nav ul {
+  /* เอาเครื่องหมายหน้ารายการออก */
   list-style-type: none;
+
+  /* เอา margin ตั้งต้น ออก */
   margin: 0;
+
+  /* เอา padding ตั้งต้น ออก */
   padding: 0;
+
+  /* เราจะตั้งสมาชิกของ ul นี้ให้ float ทั้งหมดซึ่งนั้นจะทำให้ ul นี้มีความสูงเป็น 0 ทำให้เราไม่สามารถเห็นกล่องของ ul ได้
+    และยังจะทำให้ element ตัวต่อไปในเพจลอยขึ้นมาติดกับสมาชิกตัวสุดท้ายของ ul ด้วย
+    เราจึงต้องตั้ง overflow ให้เป็นอะไรก็ได้นอกจาก visible เพื่อขึ้นความเป็น block ให้ ul นี้
+    ทั้งหมดนี้อ่านมาจาก https://stackoverflow.com/questions/16041229/css-overflowhidden-with-floats */
   overflow: hidden;
+
+  /* สีพื้นหลัง */
   background-color: #333;
 }
 
+/* เลือก li ใน nav */
 nav li {
+  /* ตั้งให้ li นี้กลายเป็น block และให้ลอยไปชิดฝั่งซ้ายบนของ parent ให้ได้มากที่สุด ช่วยทำให้สมาชิก li ใน ul อยู่ชิดกันที่ขอบฝั่งซ้าย */
   float: left;
 }
 
+/* เลือก li ที่มี class="float-right" ใน nav */
 nav li.float-right {
+  /* ตั้งให้ li นี้กลายเป็น block และให้ลอยไปชิดฝั่งขวาบนของ parent ให้ได้มากที่สุด ช่วยทำให้ li นี้ ใน ul อยู่ชิดขอบฝั่งขวา */
   float: right;
 }
 
+/* เลือก li ที่ไม่ใช่สมาชิกตัวสุดท้าย ใน nav */
 nav li:not(:last-child) {
+  /* ใส่ขอบด้านขวาเพื่อให้เห็น li แต่ละตัวแยกกันอย่างชัดเจน li ตัวสุดท้ายไม่ต้องมีขอบเพราะจะไม่มีอะไรมาต่อแล้ว */
   border-right: 1px solid #bbb;
 }
 
+/* เลือกลิ้งค์ใน nav */
 nav a {
+  /* ตั้งเป็น block จะได้ปรับ padding ได้ */
   display: block;
+
+  /* ใส่ความห่างระหว่างข้อความและขอบ */
   padding: 14px 16px;
+
+  /* สีตัวอักษร */
   color: white;
+
+  /* ตั้งให้ปรับแนวข้อความไปอยู่ตรงกลางของกล่อง */
   text-align: center;
+
+  /* เอาเส้นใต้ออก */
   text-decoration: none;
 }
 
+/* เลือกลิ้งค์ที่มี class="acitve" ใน nav */
 nav a.active {
+  /* สีพื้นหลัง */
   background-color: #4caf50;
 }
 
+/* เลือกลิ้งค์ที่ไม่มี class="active" ที่กำลังโดนชี้อยู่ ใน nav */
 nav a:hover:not(.active) {
+  /* สีพื้นหลัง */
   background-color: #111;
 }
 
+/* เลือก div ที่จะมีการ dropdown */
 .dropdown {
+  /* ตั้งเป็น inline-block เพื่อให้มีขนาดตาม content ข้างใน */
   display: inline-block;
+
+  /* ตั้ง position เป็น relative ไว้เพื่อเซ็ทตำแหน่งของ div ให้เป็นไปตาม flow เอกสารปกติ
+    และเตรียม div นี้เป็นกรอบอ้างอิงตำแหน่งสำหรับ .dropdown-content ที่จะมี position: absolute; */
   position: relative;
 }
 
+/* เลือกลิ้งค์หัวของ dropdown ใน .dropdown */
 .dropdown > a {
+  /* ตั้งเป็น block จะได้ปรับ padding ได้ */
   display: block;
+
+  /* ใส่ความห่างระหว่างข้อความและขอบ */
   padding: 14px 16px;
+
+  /* สีพื้นหลัง */
   background-color: #333;
+
+  /* สีตัวอักษร */
   color: white;
+
+  /* ตั้งให้ปรับแนวข้อความไปอยู่ตรงกลางของกล่อง */
   text-align: center;
+
+  /* เอาเส้นใต้ออก */
   text-decoration: none;
 }
 
+/* เลือก div .dropdown-content ใน .dropdown */
 .dropdown .dropdown-content {
+  /* ตั้งให้ไม่แสดงกล่องนี้ไว้ก่อน */
   display: none;
-  min-width: 160px;
-  background-color: #f9f9f9;
-  box-shadow: 0 8px 16px 0px rgba(0, 0, 0, .2);
 
+  /* ตั้งความกว้างสูงสุดที่เป็นไปได้ของกล่อง */
+  min-width: 160px;
+
+  /* สีพื้นหลัง */
+  background-color: #f9f9f9;
+
+  /* ใส่เงาให้กล่องโดย ไม่เลื่อนไปทางขวา เลื่อนลงล่าง 8px ระดับเบลอ 16px และสีดำจางมาก */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, .2);
+
+  /* ตั้ง position เป็น absolute แต่ไม่มีการเลื่อนตำแหน่งเพิ่มเติมเพื่อให้กล่องนี้อยู่ถัดลงมาจาก .dropdown
+    โดยที่ขนาดของมัน(ซึ่งเป็น content ของ .dropdown) ไม่มีผลต่อขนาดของ .dropdown ที่เป็น inline-block */
   position: absolute;
+
+  /* ตั้ง z-index ไว้เผื่อมีการทับกัน กล่องนี้จะแสดงบน .dropdown (แต่กล่องนี้ควรจะอยู่ถัดลงมาจาก .dropdown โดยไม่ทับ)  */
   z-index: 1;
 }
 
+/* เลือกลิ้งค์ทั้งหลายใน .dropdown-content ใน .dropdown */
 .dropdown .dropdown-content a {
+  /* ตั้งเป็น block จะได้ปรับ padding ได้ */
   display: block;
+
+  /* ใส่ความห่างระหว่างข้อความและขอบ */
   padding: 12px 16px;
+
+  /* สีตัวอักษร */
   color: black;
+
+  /* ตั้งให้ปรับแนวข้อความไปอยู่ฝั่งซ้ายของกล่อง */
   text-align: left;
+
+  /* เอาเส้นใต้ออก */
   text-decoration: none;
 }
 
+/* เมื่อ .dropdown ถูกชี้เราจะปรับลิ้งค์หัวของ dropdown */
 .dropdown:hover > a {
+  /* สีพื้นหลัง */
   background-color: red;
 }
 
+/* เมื่อ .dropdown ถูกชี้เราจะปรับ .dropdown-content */
 .dropdown:hover .dropdown-content {
+  /* แสดงกล่องนี้แบบ block */
   display: block;
 }
 
+/* เลือกลิ้งค์ใน .dropdown-content ใน .dropdown ที่โดนชี้อยู่ */
 .dropdown .dropdown-content a:hover {
+  /* สีพื้นหลัง */
   background-color: #f1f1f1;
 }
