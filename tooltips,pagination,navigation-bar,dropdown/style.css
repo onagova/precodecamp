@@ -12,6 +12,7 @@
 }
 
 /* เลือก span ที่มี tooltip จริงๆ */
+/* โดยเราจะซ่อนมันไว้ก่อน และเมื่อตัว .tooltip ถูกชี้เราจึงจะแสดงมัน */
 .tooltip .tooltiptext {
   /* สีพื้นหลัง */
   background-color: black;
@@ -75,6 +76,7 @@
   right: 100%;
 }
 
+/* เราจะโชว์ .tooltiptext ของเราตรงนี้ */
 /* เมื่อเม้าส์อยู่เหนือ .tooltip เราจะปรับ .tooltiptext */
 .tooltip:hover .tooltiptext {
   /* ปรับให้ไม่โปร่งใส จะได้มองเห็น .tooltiptext ที่เราเตรียมไว้ */
@@ -232,6 +234,7 @@ nav a:hover:not(.active) {
 }
 
 /* เลือก div .dropdown-content ใน .dropdown */
+/* โดยเราจะซ่อนมันไว้ก่อน และเมื่อตัว .dropdown ถูกชี้เราจึงจะแสดงมัน */
 .dropdown .dropdown-content {
   /* ตั้งให้ไม่แสดงกล่องนี้ไว้ก่อน */
   display: none;
@@ -277,6 +280,7 @@ nav a:hover:not(.active) {
   background-color: red;
 }
 
+/* เราจะโชว์ .dropdown-content ของเราตรงนี้ */
 /* เมื่อ .dropdown ถูกชี้เราจะปรับ .dropdown-content */
 .dropdown:hover .dropdown-content {
   /* แสดงกล่องนี้แบบ block */
