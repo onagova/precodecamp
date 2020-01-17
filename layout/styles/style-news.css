@@ -272,7 +272,7 @@ footer .legal p {
 }
 
 .description .image-wrapper {
-  width: 1080px;
+  max-width: 1080px;
   border: 1px solid #bb454f;
   line-height: 0;
 }
