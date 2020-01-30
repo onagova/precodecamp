@@ -6,4 +6,4 @@ CodeCamp#5
 1. [Lab HTML](lab-html.html)
 2. [Lab Tooltips, Pagination, Navigation Bar, Dropdown](tooltips,pagination,navigation-bar,dropdown)
 3. [Lab Layout](layout)
-4. [Lab JavaScript OOP](lap-oop.js)
+4. [Lab JavaScript OOP](lab-oop.js)
